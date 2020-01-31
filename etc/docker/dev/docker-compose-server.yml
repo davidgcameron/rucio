@@ -5,33 +5,14 @@ services:
     hostname: act-ldmx.cern-test.uiocloud.no
     ports:
       - "443:443"
-    links:
-      - ruciodb:ruciodb
-      - graphite:graphite
     volumes:
       - /etc/grid-security/certificates:/etc/grid-security/certificates
       - /etc/grid-security/hostcert.pem:/etc/grid-security/hostcert.pem
       - /etc/grid-security/hostkey.pem:/etc/grid-security/hostkey.pem
       - /opt/rucio/etc:/opt/rucio/etc
-      - ../../../tools:/opt/rucio/tools
-      - ../../../bin:/opt/rucio/bin
-      - ../../../lib:/opt/rucio/lib
     environment:
       - RUCIO_ENABLE_SSL=True
       - RUCIO_HOSTNAME=act-ldmx.cern-test.uiocloud.no
       - RUCIO_CFG_DATABASE_DEFAULT=postgresql://rucio:secret@ruciodb/rucio
       - RUCIO_CA_PATH=/etc/grid-security/certificates
       - RUCIO_ENABLE_LOGFILE=True
-  ruciodb:
-    image: postgres:11
-    environment:
-      - POSTGRES_USER=rucio
-      - POSTGRES_DB=rucio
-      - POSTGRES_PASSWORD=secret
-    ports:
-      - "5432:5432"
-    command: ["-c", "fsync=off","-c", "synchronous_commit=off","-c", "full_page_writes=off"]
-  graphite:
-    image: graphiteapp/graphite-statsd
-    ports:
-      - "80:80"
