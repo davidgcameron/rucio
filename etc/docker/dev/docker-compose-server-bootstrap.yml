@@ -1,0 +1,16 @@
+version: "2"
+services:
+  rucio:
+    image: rucio/rucio-server
+    hostname: act-ldmx.cern-test.uiocloud.no
+    volumes:
+      - /opt/rucio/etc:/opt/rucio/etc
+      - ../../../tools:/opt/rucio/tools
+      - ../../../bin:/opt/rucio/bin
+      - ../../../lib:/opt/rucio/lib
+    environment:
+      - RUCIO_ENABLE_SSL=True
+      - RUCIO_HOSTNAME=act-ldmx.cern-test.uiocloud.no
+      - RUCIO_CFG_DATABASE_DEFAULT=postgresql://rucio:secret@ruciodb/rucio
+      - RUCIO_CA_PATH=/etc/grid-security/certificates
+      - RUCIO_ENABLE_LOGFILE=True
