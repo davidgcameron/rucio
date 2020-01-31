@@ -1,7 +1,7 @@
 version: "2"
 services:
   rucio:
-    image: rucio/rucio-server
+    image: rucio/rucio-server:release-1.21.6
     hostname: act-ldmx.cern-test.uiocloud.no
     ports:
       - "443:443"
